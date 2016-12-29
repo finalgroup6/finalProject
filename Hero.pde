@@ -2,66 +2,55 @@ class Hero{
 float hp;
 int x = width/2;
 int y = height/2;
-int speed = 3;
+int preX, preY;
+int speed = 5;
 int gunNum;
 String nowDirection = "Down";
-PImage heroImg;
-PImage heroUp; PImage heroDown; PImage heroLeft;PImage heroRight;
+int nowDirectionNum; //用來傳送給player.shooted
+PImage img;
+PImage playerUp;
+PImage playerDown;
+PImage playerLeft;
+PImage playerRight;
+boolean shooting = false;
+
 Hero(int x , int y ){
   this.x = x;
   this.y = y;
-    heroImg = loadImage("img/playerDown.png");
-    heroDown = loadImage("img/playerDown.png");
-    heroUp = loadImage("img/playerUp.png");
-    heroLeft = loadImage("img/playerLeft.png");
-    heroRight = loadImage("img/playerRight.png");
+  img = loadImage("img/player"+nowDirection+".png");
+  playerUp = loadImage("img/playerUp.png");
+  playerDown = loadImage("img/playerDown.png");
+  playerLeft = loadImage("img/playerLeft.png");
+  playerRight = loadImage("img/playerRight.png");
 }
 
 void display(){
-
-  image(heroImg,x,y);
-    if (isMovingUp) {
-      this.move(Direction.UP);
-      nowDirection = "Up";
-      heroImg = heroUp;
-    }
-    if (isMovingDown) {
-      this.move(Direction.DOWN);
-      nowDirection = "Down";
-      heroImg = heroDown;
-    }
-    if (isMovingLeft) {
-      this.move(Direction.LEFT);
-      nowDirection = "Left";
-      heroImg = heroLeft;
-    }
-    if (isMovingRight) {
-      this.move(Direction.RIGHT);
-      nowDirection = "Right";
-      heroImg = heroRight;
-    }
+  image(img,x,y);
 }
 
-void move(int direct){
-  switch (direct) {
-      case Direction.UP:
-        this.y-= speed;
-       
-        break;
-      case Direction.DOWN:
-        this.y+= speed;
-        
-        break;
-      case Direction.LEFT:
-        this.x-= speed;
-        
-        break;
-      case Direction.RIGHT:
-        this.x+= speed;
-        
-        break;
-      }
+void move(boolean up, boolean down, boolean left, boolean right){
+  preX = x;
+  preY = y;
+  if(up){
+    y-= speed;
+    img = playerUp;
+    nowDirectionNum = Direction.UP;
+  }
+  if(down){
+    y+= speed;
+    img = playerDown;
+    nowDirectionNum = Direction.DOWN;
+  }
+  if(left){
+    x-= speed;
+    img = playerLeft;
+    nowDirectionNum = Direction.LEFT;
+  }
+  if(right){
+    x+= speed;
+    img = playerRight;
+    nowDirectionNum = Direction.RIGHT;
+  }
 }
-
 
 }
