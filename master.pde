@@ -1,3 +1,18 @@
+//class Gun裡面改
+//void addbullet(){
+//  if(treasure.treasureEaten == true){
+   
+//  int r =  floor(random(1,gunLimit));
+  
+//  if (bulletNow != bulletMax && bulletNow < bulletMax){
+//   gunArray[r].bulletNow = gunArray[r].bulletMax;
+ 
+//   treasure.treasureEaten = false;  
+//  }
+//}
+    
+//}
+
 boolean isMovingUp;
 boolean isMovingDown;
 boolean isMovingLeft;
