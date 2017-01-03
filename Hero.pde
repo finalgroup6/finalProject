@@ -51,6 +51,48 @@ void move(boolean up, boolean down, boolean left, boolean right){
     img = playerRight;
     nowDirectionNum = Direction.RIGHT;
   }
+  if(isHit(x,y,img.width,img.height,bX1,bY1,block.width,block.height)){
+   x = preX;
+   y = preY;
+  }
+  if(isHit(x,y,img.width,img.height,bX2,bY2,block.width,block.height)){
+   x = preX;
+   y = preY;
+  }
+}
+
+void shooting(int gunNum){
+   this.gunNum = gunNum;
+   switch(gunNum){
+   case 1:
+    if (nowDirectionNum==Direction.UP) {
+      line(x+30,y,x+30,y-100);
+    }
+    if (nowDirectionNum==Direction.DOWN) {
+      line(x+5,y+30,x+5,y+30+100);
+    }
+    if (nowDirectionNum==Direction.LEFT) {
+      line(x-100,y+10,x,y+10);
+    }
+    if (nowDirectionNum==Direction.RIGHT) {
+     line(x+40,y+25,x+40+100,y+25); 
+    }
+    break;
+    case 2:
+      if (nowDirectionNum==Direction.UP) {
+      line(x+30,y,x+30,y-200);
+    }
+    if (nowDirectionNum==Direction.DOWN) {
+      line(x+5,y+30,x+5,y+30+200);
+    }
+    if (nowDirectionNum==Direction.LEFT) {
+      line(x-200,y+10,x,y+10);
+    }
+    if (nowDirectionNum==Direction.RIGHT) {
+     line(x+40,y+25,x+40+200,y+25); 
+    }
+    break;
+   }
 }
 
 }
