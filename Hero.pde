@@ -26,8 +26,8 @@ Hero(int x , int y ){
 
 void display(){
   image(img,x,y);
-  rect(x,y-10,hp,5);
-  fill(#ff0000);
+  rect(x,y-10,hp,5);//HERO血量
+  fill(#ff0000);//血量紅色
 }
 
 void move(boolean up, boolean down, boolean left, boolean right){
