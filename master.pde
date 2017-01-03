@@ -13,6 +13,19 @@
     
 //}
 
+//class Treasure 增加假設人的血量夠就不能++
+//void eaten(){
+//  if(isHit(hero.x,hero.y,hero.img.width,hero.img.height,x,y,img.width,img.height)){
+//    treasureEaten = true;
+//    x = width;
+//    y = height;
+//   if(hero.hp < 100){
+//    hero.hp += 20; 
+//    println("hp++");
+//   }
+//  }
+//}
+
 boolean isMovingUp;
 boolean isMovingDown;
 boolean isMovingLeft;
