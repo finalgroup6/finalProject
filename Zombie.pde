@@ -48,6 +48,19 @@ void move(){
       y -= speed;
       img = zombieUp;
     }
+    if(isHit(hero.x,hero.y,hero.img.width,hero.img.height,x,y,img.width,img.height)){
+     x = preX;
+     y = preY;
+     hero.hp-=1;
+    }
+    if(isHit(hero.x,hero.y,hero.img.width,hero.img.height,x,y,img.width,img.height)){
+     if(hero.y<=y+img.height||hero.y+hero.img.height>=y){
+       hero.y=hero.preY;
+     }
+     if(hero.x<=x+img.width||hero.x+hero.img.height>=x){
+       hero.x=hero.preX;
+     }
+    }
 }
 void hpCheck(){
   if(hp < 0){
