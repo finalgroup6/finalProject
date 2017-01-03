@@ -48,17 +48,18 @@ void move(){
       y -= speed;
       img = zombieUp;
     }
+    //殭屍碰到HERO的碰撞偵測
     if(isHit(hero.x,hero.y,hero.img.width,hero.img.height,x,y,img.width,img.height)){
      x = preX;
      y = preY;
-     hero.hp-=1;
+     hero.hp-=1;//被殭屍打到扣血
     }
     if(isHit(hero.x,hero.y,hero.img.width,hero.img.height,x,y,img.width,img.height)){
      if(hero.y<=y+img.height||hero.y+hero.img.height>=y){
-       hero.y=hero.preY;
+       hero.y=hero.preY;//HERO被殭屍擋到Y座標
      }
      if(hero.x<=x+img.width||hero.x+hero.img.height>=x){
-       hero.x=hero.preX;
+       hero.x=hero.preX;//HERO被殭屍擋到X座標
      }
     }
 }
