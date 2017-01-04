@@ -54,5 +54,4 @@ void move(boolean up, boolean down, boolean left, boolean right){
     nowDirectionNum = Direction.RIGHT;
   }
 }
-
 }

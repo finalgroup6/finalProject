@@ -1,11 +1,13 @@
 class Gun{
 int num; //槍枝編號
 float power;
-float shootRate;
+int shootRate;
 int distance;
 int bulletMax;
 int bulletNow;
 PImage img;
+AudioSample gunSounds;
+
 
 Gun(int num){
   img = loadImage("img/gun"+num+".png");
@@ -13,17 +15,19 @@ Gun(int num){
   switch(num){
     case 1:
       power = 10;
-      shootRate = 2;
+      shootRate = 50;
       distance = 100;
       bulletMax = 100;
       bulletNow = 100;
+      this.gunSounds = uziGunSounds;
       break;
     case 2:
       power = 20;
-      shootRate = 30;
+      shootRate = 1500;
       distance = 200;
       bulletMax = 10;
       bulletNow = 10;
+      this.gunSounds = shotGunSounds;
       break;
   }
 }
