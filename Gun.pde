@@ -30,6 +30,7 @@ Gun(int num){
 
 void display(){
   image(img,hero.x,hero.y);
+  fill(255);
   textSize(32);
   text("Bullet: "+bulletNow+"/"+bulletMax,100,100);
   text("Gun: No."+num,100,50);
