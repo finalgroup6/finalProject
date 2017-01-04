@@ -12,11 +12,15 @@ Treasure(){
 void display(){
   image(img,x,y);
 }
-void eaten(){
+boolean eaten(){
   if(isHit(hero.x,hero.y,hero.img.width,hero.img.height,x,y,img.width,img.height)){
     x = width;
     y = height;
   }
+  if(x == width && y == height){
+    return true;
+  }
+  return false;
 }
 void move(){
 
