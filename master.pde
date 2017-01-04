@@ -48,8 +48,13 @@ void setup() {
   size(640, 480);
   hero = new Hero(width/2, height/2);
   treasure = new Treasure();
-  gunArray[gunNow] = new Gun(gunNow);
-  block = loadImage("img/block.png");
+
+  block = loadImage("img/block0_0.png");
+  block = loadImage("img/block0_1.png");
+  block = loadImage("img/block0_2.png");
+  block = loadImage("img/block1_0.png");
+  block = loadImage("img/block1_1.png");
+ 
   can = new Weapon();//汽油桶
   bX1 = 150;
   bY1 = 150;
@@ -80,9 +85,10 @@ void draw() {
   hero.move(isMovingUp, isMovingDown, isMovingLeft, isMovingRight);
 
   //Gun
-  gunArray[gunNow].addbullet();
+
   if (gunArray[gunNow] != null) {
     gunArray[gunNow].display();
+    gunArray[gunNow].addbullet();
   }
 
 

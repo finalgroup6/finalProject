@@ -45,39 +45,17 @@ void display(){
 
 void addbullet(){
   if(treasure.treasureEaten == true){
-    //隨機挑槍
- //   num = floor(random(1,2));  //槍的數字可能會亂掉
- //   random(gunArray[].length)
-
-   switch(floor(random(1,2))){
-    case 1:
-      power = 10;
-      shootRate = 2;
-      distance = 100;
-      bulletMax = 100;
-      bulletNow = 100;
-      break;
-    case 2:
-      power = 20;
-      shootRate = 30;
-      distance = 200;
-      bulletMax = 10;
-      bulletNow = 10;
-      break;
-     }
-    
-    if (bulletNow != bulletMax && bulletNow < bulletMax){
-     bulletNow += bulletAdd;
-      treasure.treasureEaten = false;  //會加滿
-    }
-    
-    //else if (bulletNow > bulletMax){
-    //   bulletNow = bulletMax;
-      
-    //}
-  }  
+   
+  int r =  floor(random(1,gunLimit));
+  
+  if (bulletNow != bulletMax && bulletNow < bulletMax){
+   gunArray[r].bulletNow = gunArray[r].bulletMax;
+ 
+   treasure.treasureEaten = false;  
+  }
 }
-
+    
+}
 
 void stopCount(){
   if(stop1==true){
