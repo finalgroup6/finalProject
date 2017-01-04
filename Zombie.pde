@@ -10,6 +10,7 @@ PImage zombieDown;
 PImage zombieLeft;
 PImage zombieRight;
 
+
 /* 暫停殭屍
 boolean stop1 =false;
 boolean stop2 =false;
@@ -33,18 +34,22 @@ void display(){
 
 void move(){
     if(x<hero.x){
+      preX=x;
       x += speed;
       img = zombieRight;
     }
     if(x>hero.x){
+      preX=x;
       x -= speed;
       img = zombieLeft;
     }
     if(y<hero.y){
+      preY=y;
       y += speed;
       img = zombieDown;
     }
     if(y>hero.y){
+      preY=y;
       y -= speed;
       img = zombieUp;
     }
@@ -52,7 +57,9 @@ void move(){
     if(isHit(hero.x,hero.y,hero.img.width,hero.img.height,x,y,img.width,img.height)){
      x = preX;
      y = preY;
+     if(Timer(500,true)){
      hero.hp-=1;//被殭屍打到扣血
+     }
     }
     if(isHit(hero.x,hero.y,hero.img.width,hero.img.height,x,y,img.width,img.height)){
      if(hero.y<=y+img.height||hero.y+hero.img.height>=y){
