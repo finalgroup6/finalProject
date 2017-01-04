@@ -55,4 +55,38 @@ void move(boolean up, boolean down, boolean left, boolean right){
   }
 }
 
+void shooting(int gunNum){
+   this.gunNum = gunNum;
+   switch(gunNum){
+   case 1:
+    if (nowDirectionNum==Direction.UP) {
+      line(x+30,y-20,x+30,y-120);
+    }
+    if (nowDirectionNum==Direction.DOWN) {
+      line(x+5,y+30+20,x+5,y+30+120);
+    }
+    if (nowDirectionNum==Direction.LEFT) {
+      line(x-120,y+10,x-20,y+10);
+    }
+    if (nowDirectionNum==Direction.RIGHT) {
+     line(x+40+20,y+25,x+40+120,y+25); 
+    }
+    break;
+    case 2:
+      if (nowDirectionNum==Direction.UP) {
+      line(x+30,y-20,x+30,y-220);
+    }
+    if (nowDirectionNum==Direction.DOWN) {
+      line(x+5,y+30+20,x+5,y+30+220);
+    }
+    if (nowDirectionNum==Direction.LEFT) {
+      line(x-220,y+10,x-20,y+10);
+    }
+    if (nowDirectionNum==Direction.RIGHT) {
+     line(x+40+20,y+25,x+40+220,y+25); 
+    }
+    break;
+   }
+}
+
 }
