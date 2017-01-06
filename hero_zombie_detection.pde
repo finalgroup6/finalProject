@@ -48,7 +48,6 @@ Gun[] gunArray = new Gun[gunMax];
 int attackPassedTime, attackSavedTime;
 //---------------------計時器-----------------------------
 
-
 JSONObject json;
 int stageState = -1; //遊戲關卡 用來變換場景
 int blockMax = 3; //每關的block數量 預設第一關3個
@@ -69,7 +68,6 @@ class Direction
 
 void setup(){
 size(640, 480);
-attackPassedTime = 2000;
 hero = new Hero(width/2,height/2);
 treasure = new Treasure();
 gunArray[gunNow] = new Gun(gunNow); //預設使用第1隻槍
@@ -79,7 +77,6 @@ frameRate(60);
 
 void draw(){
   background(#D6C38F);
-  println(attackPassedTime+" "+attackSavedTime);
   //Treasure
   treasure.display();
   treasure.eaten();
@@ -187,17 +184,19 @@ void keyReleased() {
     hero.shooting = false;
   }
 }
-
-//---------------------計時器--每隔totalTime秒回傳一次true(單位毫秒)---//
-boolean Timer(int totalTime, boolean startNow){  //startNow是指你要開始計時的時間點
+//---------------------計時器--每隔totalTime秒回傳一次true(單位毫秒)---//  
+boolean attackTimer(int totalTime, boolean startNow){  //startNow是指你要開始計時的時間點
+for(int i = 0 ; i< zombieNow; i++){
   if(startNow ==true){
-    attackPassedTime = millis()-attackSavedTime;
+    zombieArray[i].passedTime = millis()-zombieArray[i].savedTime;
   }
-  if(attackPassedTime>totalTime){
-      attackSavedTime = millis();
+  if(zombieArray[i].passedTime>totalTime){
+      zombieArray[i].savedTime = millis();
       return true;
-  }
+  }}
   return false;
-  
 }
+
+
+
 //---------------------計時器--------------------------//

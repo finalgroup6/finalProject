@@ -4,11 +4,12 @@ int x,y;
 int preX, preY;
 float speed = 1;
 int direction;
-PImage img ;
+PImage img;
 PImage zombieUp;
 PImage zombieDown;
 PImage zombieLeft;
 PImage zombieRight;
+int passedTime, savedTime;
 
 
 /* 暫停殭屍
@@ -29,7 +30,7 @@ Zombie(){
 }
 
 void display(){
-  image(img,x,y);
+  image(img,x,y);  
 }
 
 void move(){
@@ -57,8 +58,8 @@ void move(){
     if(isHit(hero.x,hero.y,hero.img.width,hero.img.height,x,y,img.width,img.height)){
      x = preX;
      y = preY;
-     if(Timer(500,true)){
-     hero.hp-=1;//被殭屍打到扣血
+     if(attackTimer(500,true)){
+       hero.hp-=1;//被殭屍打到扣血
      }
     }
     if(isHit(hero.x,hero.y,hero.img.width,hero.img.height,x,y,img.width,img.height)){
@@ -69,6 +70,7 @@ void move(){
        hero.x=hero.preX;//HERO被殭屍擋到X座標
      }
     }
+    
 }
 void hpCheck(){
   if(hp < 0){
