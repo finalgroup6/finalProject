@@ -4,13 +4,15 @@ int x,y;
 int preX, preY;
 float speed = 1;
 int direction;
-PImage img;
+PImage img,img2;
 PImage zombieUp;
 PImage zombieDown;
 PImage zombieLeft;
 PImage zombieRight;
+PImage zombieRight2;
 int passedTime, savedTime;
-boolean startNow;
+int zombieHitPassedTime, zombieHitSavedTime;
+boolean startNow,shooted = false;
 
 
 /* 暫停殭屍
@@ -28,10 +30,14 @@ Zombie(){
   zombieDown = loadImage("img/zombieDown.png");
   zombieLeft = loadImage("img/zombieLeft.png");
   zombieRight = loadImage("img/zombieRight.png");
+  zombieRight2 = loadImage("img/zombieRight2.png");
 }
 
 void display(){
-  image(img,x,y);  
+  
+  if(shooted==true){
+    image(img2,x,y);
+  }else{image(img,x,y);}
 }
 
 void move(){
@@ -39,6 +45,7 @@ void move(){
       preX=x;
       x += speed;
       img = zombieRight;
+      img2 = zombieRight2;
     }
     if(x>hero.x){
       preX=x;
@@ -113,19 +120,7 @@ boolean shooted(int heroDirection, int zombieNum){
   }
   return false;
 } 
-/*
-void stopCount(){
-   if(stop1 == false && stop2 == true){
-    if( (frameCount-stopFrame)%15== 0){
-      stop2 = false;
-    }
-  }
-  if(stop1==true){
-    stopFrame = frameCount;
-    stop1 = false;
-  }
-}
-*/
+
 //---------------------計時器--每隔totalTime秒回傳一次true(單位毫秒)---//  
 boolean attackTimer(int totalTime, boolean startNow){  //startNow是指你要開始計時的時間點
 //for(int i = 0 ; i< zombieNow; i++){
@@ -138,8 +133,17 @@ boolean attackTimer(int totalTime, boolean startNow){  //startNow是指你要開
   }
   return false;
 }
-
-
-
+ //殭屍被打到的硬直   
+boolean zombieHitimer(int totalTime, boolean startNow){  //startNow是指你要開始計時的時間點
+  if(startNow ==true){
+    zombieHitPassedTime = millis()-zombieHitSavedTime;
+  }
+  if(zombieHitPassedTime>totalTime){
+      zombieHitSavedTime = millis();
+      return true;
+  }
+  return false;
+}
+ //殭屍被打到的硬直   
 //---------------------計時器--------------------------//
 }

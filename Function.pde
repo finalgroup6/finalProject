@@ -45,7 +45,7 @@ void changeStage(){
   }
   int bX[] = new int[blockMax]; //每個block的x
   int bY[] = new int[blockMax];
-  json = loadJSONObject("/json_block/data/block"+stageState+".json");
+  json = loadJSONObject("json_block/data/block"+stageState+".json");
   JSONArray values = json.getJSONArray("block");
   for(int i=0; i<values.size(); i++){
     JSONObject block = values.getJSONObject(i); 
