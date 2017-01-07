@@ -109,6 +109,7 @@ void draw() {
             hero.shooting = false;
           }
         }
+        }
         if(gunNow==4){
         if (canArray[j].shooted (hero.nowDirectionNum, j,gunArray[gunNow].num, 30 )) {
             canArray[j].x = width;
@@ -120,7 +121,7 @@ void draw() {
           }
         }
       }
-      }
+      
       
     }
     }

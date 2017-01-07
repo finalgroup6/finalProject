@@ -40,7 +40,7 @@ boolean shooted(int heroDirection, int canNum, int gunNum,int gunFourDectection)
     break;
     case Direction.RIGHT:
     if(canArray[canNum].y+canArray[canNum].img.height > hero.y+25-gunFourDectection && hero.y+25+gunFourDectection > canArray[canNum].y){
-      if(canArray[canNum].x < hero.x+hero.img.width+20+gunArray[gunNum].distance&&hero.x+hero.img.width+20>canArray[canNum].x+canArray[canNum].img.width){
+      if(canArray[canNum].x < hero.x+hero.img.width+20+gunArray[gunNum].distance&& hero.x+hero.img.width+20 <canArray[canNum].x+canArray[canNum].img.width){
         return true;
       }
     }
