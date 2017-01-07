@@ -7,6 +7,7 @@ class Gun { //<>// //<>//
   int bulletNow;
   PImage img;
 
+
   Gun(int num) {
     if (num!=3) {
       img = loadImage("img/gun"+num+".png");
@@ -38,35 +39,26 @@ class Gun { //<>// //<>//
       bulletMax = 100;
       bulletNow = 100;
       break;
-     
+     case 5:
+      power = 10;
+      shootRate = 2;
+      bulletMax = 50;
+      bulletNow = 50;
+      break;     
     }
   }
 
-  void display() {  
-    switch(num) {
-    case 1:
+  void display() { 
+      if(num!=3 && num<6){
       image(img, hero.x, hero.y);
       textSize(32);
       text("Bullet: "+bulletNow+"/"+bulletMax, 100, 100);
       text("Gun: No."+num, 100, 50);
-      break;
-    case 2:
-      image(img, hero.x, hero.y);
+      }
+      if(num==3){
       textSize(32);
       text("Bullet: "+bulletNow+"/"+bulletMax, 100, 100);
       text("Gun: No."+num, 100, 50);
-      break;
-    case 3:       
-      textSize(32);
-      text("Can: "+bulletNow+"/"+ bulletMax, 100, 100);
-      text("Gun: No."+num, 100, 50);
-      break;
-    case 4:
-      image(img, hero.x, hero.y);
-      textSize(32);
-      text("Bullet: "+bulletNow+"/"+bulletMax, 100, 100);
-      text("Gun: No."+num, 100, 50);
-      break;
-    }
+      }  
   } //<>// //<>//
 }

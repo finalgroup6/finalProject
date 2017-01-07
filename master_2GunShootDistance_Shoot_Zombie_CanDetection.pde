@@ -39,14 +39,19 @@ int zombieMax = 300;
 int zombieNow = 0;
 Zombie[] zombieArray = new Zombie[zombieMax];
 
-int gunMax = 5;
-int gunLimit = 5;//第n支槍還不能用
+int gunMax =6;
+int gunLimit = 6;//第n支槍還不能用
 int gunNow = 1;
 Gun[] gunArray = new Gun[gunMax];
 
 int canMax =10;
 int canNow =0;
 Can[] canArray=new Can[canMax];
+
+int rocketMax =50;
+int rocketNow=0;
+Rocket [] rocketArray=new Rocket[rocketMax];
+boolean setRocket;
 
 JSONObject json;
 int stageState = -1; //遊戲關卡 用來變換場景
@@ -73,6 +78,7 @@ void setup() {
   gunArray[gunNow] = new Gun(gunNow); //預設使用第1隻槍
   changeStage();
   frameRate(60);
+  hero.nowDirectionNum=Direction.DOWN;
 }
 
 void draw() {
@@ -89,9 +95,13 @@ void draw() {
   if (gunArray[gunNow] != null) {
     gunArray[gunNow].display();
   }
+  // 
+  for (int i=0; i< rocketNow; i++) {
+    rocketArray[i].display();
+    rocketArray[i].move(rocketArray[i].d);
+  }
 
-
- //can
+  //can
   for (int i=0; i<canNow; i++) {
     canArray[i].display();
   }
@@ -99,37 +109,37 @@ void draw() {
   for (int i=0; i<zombieNow; i++) {
     for (int j=0; j<canNow; j++) {
       if (hero.shooting) {
-        if(gunNow==1||gunNow==2){
-        if (canArray[j].shooted (hero.nowDirectionNum, j,gunArray[gunNow].num, 0 )) {
-            canArray[j].x = width;
-            canArray[j].y = height;
+        if (gunNow==1||gunNow==2) {
           if (isHit(zombieArray[i].x, zombieArray[i].y, zombieArray[i].img.width, zombieArray[i].img.height, canArray[j].x-50, canArray[j].y-50, canArray[j].img.width+100, canArray[j].img.height+100)) {
-            zombieArray[i].x = width;
-            zombieArray[i].y = height;
-            hero.shooting = false;
+            if (canArray[j].shooted (hero.nowDirectionNum, j, gunArray[gunNow].num, 0) ) {
+              zombieArray[i].x = width;
+              zombieArray[i].y = height;
+              canArray[j].x = width;
+              canArray[j].y = height;
+            } else if (canArray[j].shooted (hero.nowDirectionNum, j, gunArray[gunNow].num, 0) ) {
+              canArray[j].x = width;
+              canArray[j].y = height;
+            }
           }
         }
-        }
-        if(gunNow==4){
-        if (canArray[j].shooted (hero.nowDirectionNum, j,gunArray[gunNow].num, 30 )) {
-            canArray[j].x = width;
-            canArray[j].y = height;
+        if (gunNow==4) {
           if (isHit(zombieArray[i].x, zombieArray[i].y, zombieArray[i].img.width, zombieArray[i].img.height, canArray[j].x-50, canArray[j].y-50, canArray[j].img.width+100, canArray[j].img.height+100)) {
-            zombieArray[i].x = width;
-            zombieArray[i].y = height;
-            hero.shooting = false;
+            if (canArray[j].shooted (hero.nowDirectionNum, j, gunArray[gunNow].num, 30) ) {
+              zombieArray[i].x = width;
+              zombieArray[i].y = height;
+              canArray[j].x = width;
+              canArray[j].y = height;
+            } else if (canArray[j].shooted (hero.nowDirectionNum, j, gunArray[gunNow].num, 0) ) {
+              canArray[j].x = width;
+              canArray[j].y = height;
+            }
           }
         }
       }
-      
-      
-    }
     }
   }
   //Zombie
   for (int i=0; i<zombieNow; i++) {
-
-
     if (zombieArray[i].x != width && zombieArray[i].y != height) {
       zombieArray[i].move();
       zombieArray[i].display();
@@ -143,18 +153,27 @@ void draw() {
           zombieArray[i].y = height;
           hero.shooting = false;
         }
-      }else if(gunNow==4 ){
-         if (zombieArray[i].shooted (hero.nowDirectionNum, i, gunArray[gunNow].num, 30)) {
+      } else if (gunNow==4 ) {
+        if (zombieArray[i].shooted (hero.nowDirectionNum, i, gunArray[gunNow].num, 30)) {
           zombieArray[i].hp -= gunArray[gunNow].power;
           zombieArray[i].x = width;
           zombieArray[i].y = height;
           hero.shooting = false;
-        }        
+        }
       }
+    }
+    for(int j=0;j<rocketNow;j++){
+
+    if(gunNow==5&&key=='r' ){
+    if(isHit(zombieArray[i].x, zombieArray[i].y, zombieArray[i].img.width, zombieArray[i].img.height, rocketArray[j].x-20, rocketArray[j].y-20, rocketArray[j].img.width+40, rocketArray[j].img.height+40)==true)
+    {
+    zombieArray[i].x = width;
+    zombieArray[i].y = height;
+    }
     }
   }
 
- 
+  }
 
   //Block
   for (int i=0; i<blockMax; i++) {
@@ -200,30 +219,9 @@ void keyPressed() {
   }
   //開槍
   if (key == ' ') {
-    if (gunArray[gunNow].bulletNow>0 && gunNow!=3) {
+    if (gunArray[gunNow].bulletNow>0 && gunNow!=3&& gunNow!=5) {
       hero.shooting = true;
       gunArray[gunNow].bulletNow --;
-      //if (gunNow==1) {
-      //  hero.shooting(1);
-      //  if ((can.x<(hero.x+40+100)&& can.y<(hero.y+25) && (can.y+60) > (hero.y+25))
-      //    ||((can.x+40)>(hero.x-100) && can.y<(hero.y+10) && (can.y+60) > (hero.y+10))
-      //    ||( can.x<(hero.x+30) && (can.x+40)>(hero.x+30) && (can.y+60)> (hero.y-100))
-      //    ||( can.x<(hero.x+5)&& (can.x+40) > (hero.x+30) && can.y <(hero.y+30+100))) {
-      //    can.x =width;
-      //    can.y=height;
-      //  }
-      //}
-      //if (gunNow==2) {
-      //  hero.shooting(2);
-      //  if (can.x<(hero.x+40+200)&& can.y<(hero.y+25) && (can.y+70) > (hero.y+25)
-      //    ||((can.x+40)>(hero.x-200) && can.y<(hero.y+10) && (can.y+60) > (hero.y+10))
-      //    ||(can.x<(hero.x+30) && (can.x+40)>(hero.x+30) && (can.y+60)> (hero.y-200))
-      //    ||(can.x<(hero.x+5)&& (can.x+40) > (hero.x+30) && can.y <(hero.y+30+200))) {
-      //    can.x =width;
-      //    can.y=height;
-      //  }
-      //}
-
       if (gunNow == gunArray[gunNow].num) {
         hero.shooting(gunNow);
       }
@@ -239,6 +237,18 @@ void keyPressed() {
         println(canNow);
       }
       //image(hero.img,hero.x,hero.y);//讓主角在can的上方
+    }
+  }
+  if (key == 'r' && gunNow==5) {
+    setRocket=true;
+    if (gunArray[gunNow].bulletNow>0 ) {
+      gunArray[gunNow].bulletNow --;
+      if (rocketNow < rocketMax) {   
+        rocketArray[rocketNow] = new Rocket();
+        rocketArray[rocketNow].d=hero.nowDirectionNum;
+        rocketNow++;      
+        println(rocketNow);
+      }
     }
   }
 
@@ -270,5 +280,8 @@ void keyReleased() {
   }
   if (key == ' ') {
     hero.shooting = false;
+  }
+  if(key=='r'){
+    setRocket=false;
   }
 }

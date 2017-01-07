@@ -12,7 +12,11 @@ class Hero {
   PImage playerDown;
   PImage playerLeft;
   PImage playerRight;
+  PImage [] rocketImg =new PImage [5];
+  int [] rocketX =new int [5];
+  int [] rocketY =new int [5];
   boolean shooting = false;
+
 
   Hero(int x, int y ) {
     this.x = x;
@@ -22,10 +26,16 @@ class Hero {
     playerDown = loadImage("img/playerDown.png");
     playerLeft = loadImage("img/playerLeft.png");
     playerRight = loadImage("img/playerRight.png");
+    for (int i=0; i<5; i++) {
+      rocketImg[i]=loadImage("img/rocket.png");
+      rocketX[i]=x;
+      rocketY[i]=y;
+    }
   }
 
   void display() {
     image(img, x, y);
+
     rect(x, y-10, hp, 5);//HERO血量
     fill(#ff0000);//血量紅色
   }
@@ -71,7 +81,7 @@ class Hero {
         line(x+60, y+25, x+60+gunArray[gunNum].distance, y+25);
       }
     }
-    if(gunNum==4){
+    if (gunNum==4) {
       if (nowDirectionNum==Direction.UP) {
         line(x+30, y-20, x+30, y-20-gunArray[gunNum].distance);
         line(x+30+5, y-20, x+30+30, y-20-gunArray[gunNum].distance);
@@ -91,8 +101,7 @@ class Hero {
         line(x+60, y+25, x+60+gunArray[gunNum].distance, y+25);
         line(x+60, y+25-5, x+60+gunArray[gunNum].distance, y+25-30);
         line(x+60, y+25+5, x+60+gunArray[gunNum].distance, y+25+30);
-      }   
+      }
     }
-    
   }
 }
