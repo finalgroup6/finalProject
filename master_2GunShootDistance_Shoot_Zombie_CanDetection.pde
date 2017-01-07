@@ -158,7 +158,6 @@ void draw() {
           zombieArray[i].hp -= gunArray[gunNow].power;
           zombieArray[i].x = width;
           zombieArray[i].y = height;
-          hero.shooting = false;
         }
       }
     }
@@ -172,7 +171,9 @@ void draw() {
     }
     }
   }
-
+  }
+  if(gunNow == 4){
+    hero.shooting = false;
   }
 
   //Block
