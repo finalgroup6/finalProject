@@ -4,6 +4,7 @@ int x,y;
 int preX, preY;
 float speed = 1;
 int direction;
+boolean shotGunShooted; 
 PImage img ;
 PImage zombieUp;
 PImage zombieDown;
