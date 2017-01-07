@@ -10,6 +10,7 @@ PImage zombieDown;
 PImage zombieLeft;
 PImage zombieRight;
 int passedTime, savedTime;
+boolean startNow;
 
 
 /* 暫停殭屍
@@ -58,7 +59,8 @@ void move(){
     if(isHit(hero.x,hero.y,hero.img.width,hero.img.height,x,y,img.width,img.height)){
      x = preX;
      y = preY;
-     if(attackTimer(500,true)){
+     startNow = true;
+     if(attackTimer(500,startNow)){
        hero.hp-=1;//被殭屍打到扣血
      }
     }
@@ -124,4 +126,20 @@ void stopCount(){
   }
 }
 */
+//---------------------計時器--每隔totalTime秒回傳一次true(單位毫秒)---//  
+boolean attackTimer(int totalTime, boolean startNow){  //startNow是指你要開始計時的時間點
+//for(int i = 0 ; i< zombieNow; i++){
+  if(startNow ==true){
+    passedTime = millis()-savedTime;
+  }
+  if(passedTime>totalTime){
+      savedTime = millis();
+      return true;
+  }
+  return false;
+}
+
+
+
+//---------------------計時器--------------------------//
 }

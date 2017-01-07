@@ -184,19 +184,3 @@ void keyReleased() {
     hero.shooting = false;
   }
 }
-//---------------------計時器--每隔totalTime秒回傳一次true(單位毫秒)---//  
-boolean attackTimer(int totalTime, boolean startNow){  //startNow是指你要開始計時的時間點
-for(int i = 0 ; i< zombieNow; i++){
-  if(startNow ==true){
-    zombieArray[i].passedTime = millis()-zombieArray[i].savedTime;
-  }
-  if(zombieArray[i].passedTime>totalTime){
-      zombieArray[i].savedTime = millis();
-      return true;
-  }}
-  return false;
-}
-
-
-
-//---------------------計時器--------------------------//
