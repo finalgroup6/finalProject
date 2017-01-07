@@ -70,32 +70,32 @@ void hpCheck(){
     y = height;
   }
 }
+
 boolean shooted(int heroDirection, int zombieNum, int gunNum,int gunFourDectection){
   switch(heroDirection){
     case Direction.UP:
      if(zombieArray[zombieNum].x+zombieArray[zombieNum].img.width > hero.x+30 -gunFourDectection && hero.x+30+gunFourDectection > zombieArray[zombieNum].x){
-       if(zombieArray[zombieNum].y+zombieArray[zombieNum].img.height > hero.y-20-gunArray[gunNum].distance){
+       if(zombieArray[zombieNum].y+zombieArray[zombieNum].img.height > hero.y-20-gunArray[gunNum].distance && hero.y-20>zombieArray[zombieNum].y){
          return true;
        }
      }
     break;
     case Direction.DOWN:
     if(zombieArray[zombieNum].x+zombieArray[zombieNum].img.width > hero.x+5-gunFourDectection && hero.x+5+gunFourDectection > zombieArray[zombieNum].x){
-      if(zombieArray[zombieNum].y < hero.y+hero.img.height+20+gunArray[gunNum].distance){
-        return true;
+      if(zombieArray[zombieNum].y < hero.y+hero.img.height+20+gunArray[gunNum].distance&&hero.y+hero.img.height+20<zombieArray[zombieNum].y+zombieArray[zombieNum].img.height){
       }
     }
     break;
     case Direction.LEFT:
     if(zombieArray[zombieNum].y+zombieArray[zombieNum].img.height > hero.y+10-gunFourDectection && hero.y+10+gunFourDectection> zombieArray[zombieNum].y){
-      if(zombieArray[zombieNum].x+zombieArray[zombieNum].img.width > hero.x-20-gunArray[gunNum].distance){
+      if(zombieArray[zombieNum].x+zombieArray[zombieNum].img.width > hero.x-20-gunArray[gunNum].distance &&hero.x-20>zombieArray[zombieNum].x){
         return true;
       }
     }
     break;
     case Direction.RIGHT:
     if(zombieArray[zombieNum].y+zombieArray[zombieNum].img.height > hero.y+25-gunFourDectection && hero.y+25+gunFourDectection > zombieArray[zombieNum].y){
-      if(zombieArray[zombieNum].x < hero.x+hero.img.width+20+gunArray[gunNum].distance){
+      if(zombieArray[zombieNum].x < hero.x+hero.img.width+20+gunArray[gunNum].distance&&hero.x+hero.img.width+20< zombieArray[zombieNum].x+zombieArray[zombieNum].img.width ){
         return true;
       }
     }

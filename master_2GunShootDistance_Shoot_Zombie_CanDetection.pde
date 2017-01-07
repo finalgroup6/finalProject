@@ -90,6 +90,41 @@ void draw() {
     gunArray[gunNow].display();
   }
 
+
+ //can
+  for (int i=0; i<canNow; i++) {
+    canArray[i].display();
+  }
+  //當射擊can時，如果殭屍同時在can的方圓10pixle內，則can爆炸&殭屍死掉(can&殭屍在畫面外)
+  for (int i=0; i<zombieNow; i++) {
+    for (int j=0; j<canNow; j++) {
+      if (hero.shooting) {
+        if(gunNow==1||gunNow==2){
+        if (canArray[j].shooted (hero.nowDirectionNum, j,gunArray[gunNow].num, 0 )) {
+            canArray[j].x = width;
+            canArray[j].y = height;
+          if (isHit(zombieArray[i].x, zombieArray[i].y, zombieArray[i].img.width, zombieArray[i].img.height, canArray[j].x-50, canArray[j].y-50, canArray[j].img.width+100, canArray[j].img.height+100)) {
+            zombieArray[i].x = width;
+            zombieArray[i].y = height;
+            hero.shooting = false;
+          }
+        }
+        if(gunNow==4){
+        if (canArray[j].shooted (hero.nowDirectionNum, j,gunArray[gunNow].num, 30 )) {
+            canArray[j].x = width;
+            canArray[j].y = height;
+          if (isHit(zombieArray[i].x, zombieArray[i].y, zombieArray[i].img.width, zombieArray[i].img.height, canArray[j].x-50, canArray[j].y-50, canArray[j].img.width+100, canArray[j].img.height+100)) {
+            zombieArray[i].x = width;
+            zombieArray[i].y = height;
+            hero.shooting = false;
+          }
+        }
+      }
+      }
+      
+    }
+    }
+  }
   //Zombie
   for (int i=0; i<zombieNow; i++) {
 
@@ -118,26 +153,7 @@ void draw() {
     }
   }
 
-  //can
-  for (int i=0; i<canNow; i++) {
-    canArray[i].display();
-  }
-  //當射擊can時，如果殭屍同時在can的方圓10pixle內，則can爆炸&殭屍死掉(can&殭屍在畫面外)
-  for (int i=0; i<zombieNow; i++) {
-    for (int j=0; j<canNow; j++) {
-      if (hero.shooting) {
-        if (canArray[i].shooted (hero.nowDirectionNum, i, gunArray[gunNow].num)) {
-          if (isHit(zombieArray[i].x, zombieArray[i].y, zombieArray[i].img.width, zombieArray[i].img.height, canArray[j].x-10, canArray[j].y-10, canArray[j].img.width+20, canArray[j].img.height+20)) {
-            zombieArray[i].x = width;
-            zombieArray[i].y = height;
-            canArray[i].x = width;
-            canArray[i].y = height;
-            hero.shooting = false;
-          }
-        }
-      }
-    }
-  }
+ 
 
   //Block
   for (int i=0; i<blockMax; i++) {
