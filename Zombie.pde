@@ -4,7 +4,7 @@ int x,y;
 int preX, preY;
 float speed = 1;
 int direction;
-boolean shotGunShooted; 
+boolean shotGunShooted,shooted; 
 PImage img ;
 PImage zombieUp;
 PImage zombieDown;
@@ -66,7 +66,7 @@ void move(){
     //}
 }
 void hpCheck(){
-  if(hp < 0){
+  if(hp <= 0){
     x = width;
     y = height;
   }

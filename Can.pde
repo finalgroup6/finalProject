@@ -4,6 +4,7 @@ int y;
 int preX;
 int preY;
 PImage img;
+boolean shooted;
   
 Can(){
     x=hero.x;

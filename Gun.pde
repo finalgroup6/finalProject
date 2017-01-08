@@ -5,6 +5,7 @@ class Gun { //<>// //<>//
   int distance;
   int bulletMax;
   int bulletNow;
+  int range;
   PImage img;
 
 
@@ -15,11 +16,12 @@ class Gun { //<>// //<>//
     this.num = num;
     switch(num) {
     case 1:
-      power = 10;
+      power = 100;
       shootRate = 2;
-      distance = 100;
+      distance = 500;
       bulletMax = 100;
       bulletNow = 100;
+      range =0;
       break;
     case 2:
       power = 20;
@@ -27,17 +29,19 @@ class Gun { //<>// //<>//
       distance = 200;
       bulletMax = 10;
       bulletNow = 10;
+      range =0;
       break;
     case 3:
-        bulletMax  = 10;
-        bulletNow  = 10;
+        bulletMax  = 200;
+        bulletNow  = 200;
       break;
      case 4:
-      power = 10;
+      power = 200;
       shootRate = 2;
-      distance = 200;
+      distance = 500;
       bulletMax = 100;
       bulletNow = 100;
+      range = 30 ;
       break;
      case 5:
       power = 10;

@@ -37,6 +37,8 @@ Hero hero;
 
 int zombieMax = 300;
 int zombieNow = 0;
+int shootedNumZ;
+float distanceZ;
 Zombie[] zombieArray = new Zombie[zombieMax];
 
 int gunMax =6;
@@ -44,8 +46,10 @@ int gunLimit = 6;//第n支槍還不能用
 int gunNow = 1;
 Gun[] gunArray = new Gun[gunMax];
 
-int canMax =10;
+int canMax =100;
 int canNow =0;
+int shootedNumC;
+float distanceC;
 Can[] canArray=new Can[canMax];
 
 int rocketMax =50;
@@ -106,73 +110,140 @@ void draw() {
     canArray[i].display();
   }
   //當射擊can時，如果殭屍同時在can的方圓10pixle內，則can爆炸&殭屍死掉(can&殭屍在畫面外)
-  for (int i=0; i<zombieNow; i++) {
+  //for (int i=0; i<zombieNow; i++) {
     for (int j=0; j<canNow; j++) {
+      canArray[j].shooted = false;
       if (hero.shooting) {
-        if (gunNow==1||gunNow==2) {
-          if (isHit(zombieArray[i].x, zombieArray[i].y, zombieArray[i].img.width, zombieArray[i].img.height, canArray[j].x-50, canArray[j].y-50, canArray[j].img.width+100, canArray[j].img.height+100)) {
-            if (canArray[j].shooted (hero.nowDirectionNum, j, gunArray[gunNow].num, 0) ) {
-              zombieArray[i].x = width;
-              zombieArray[i].y = height;
-              canArray[j].x = width;
-              canArray[j].y = height;
-            } else if (canArray[j].shooted (hero.nowDirectionNum, j, gunArray[gunNow].num, 0) ) {
-              canArray[j].x = width;
-              canArray[j].y = height;
-            }
-          }
+        if (canArray[j].shooted (hero.nowDirectionNum, j, gunArray[gunNow].num, gunArray[gunNow].range) ) {
+              canArray[j].shooted = true;
         }
-        if (gunNow==4) {
-          if (isHit(zombieArray[i].x, zombieArray[i].y, zombieArray[i].img.width, zombieArray[i].img.height, canArray[j].x-50, canArray[j].y-50, canArray[j].img.width+100, canArray[j].img.height+100)) {
-            if (canArray[j].shooted (hero.nowDirectionNum, j, gunArray[gunNow].num, 30) ) {
-              zombieArray[i].x = width;
-              zombieArray[i].y = height;
-              canArray[j].x = width;
-              canArray[j].y = height;
-            } else if (canArray[j].shooted (hero.nowDirectionNum, j, gunArray[gunNow].num, 0) ) {
-              canArray[j].x = width;
-              canArray[j].y = height;
-            }
-          }
-        }
+        //if (gunNow==1||gunNow==2) {
+          
+        //  if (isHit(zombieArray[i].x, zombieArray[i].y, zombieArray[i].img.width, zombieArray[i].img.height, canArray[j].x-50, canArray[j].y-50, canArray[j].img.width+100, canArray[j].img.height+100)) {
+        //    if (canArray[j].shooted (hero.nowDirectionNum, j, gunArray[gunNow].num, 0) ) {
+        //     canArray[j].shooted = true;
+        //    } 
+        //  }
+        //}
+        //if (gunNow==4) {
+        //  if (isHit(zombieArray[i].x, zombieArray[i].y, zombieArray[i].img.width, zombieArray[i].img.height, canArray[j].x-50, canArray[j].y-50, canArray[j].img.width+100, canArray[j].img.height+100)) {
+        //    if (canArray[j].shooted (hero.nowDirectionNum, j, gunArray[gunNow].num, 30) ) {
+        //      canArray[j].shooted = true;
+        //      println("3");
+        //    } else if (canArray[j].shooted (hero.nowDirectionNum, j, gunArray[gunNow].num, 0) ) {
+        //      canArray[j].shooted = true;
+        //      println("4");
+        //    }
+        //  }
+        //}
       }
     }
-  }
+  //}
   //Zombie
   for (int i=0; i<zombieNow; i++) {
+    zombieArray[i].shooted = false;
     if (zombieArray[i].x != width && zombieArray[i].y != height) {
       zombieArray[i].move();
       zombieArray[i].display();
       zombieArray[i].hpCheck();
     }
     if (hero.shooting) {
-      if (gunNow==1 ||gunNow==2) {
-        if (zombieArray[i].shooted (hero.nowDirectionNum, i, gunArray[gunNow].num, 0)) {
-          zombieArray[i].hp -= gunArray[gunNow].power;
-          zombieArray[i].x = width;
-          zombieArray[i].y = height;
-          hero.shooting = false;
-        }
-      } else if (gunNow==4 ) {
-        if (zombieArray[i].shooted (hero.nowDirectionNum, i, gunArray[gunNow].num, 30)) {
-          zombieArray[i].hp -= gunArray[gunNow].power;
-          zombieArray[i].x = width;
-          zombieArray[i].y = height;
-        }
+      if (zombieArray[i].shooted (hero.nowDirectionNum, i, gunArray[gunNow].num, gunArray[gunNow].range)) {
+        zombieArray[i].shooted = true;
       }
+      //if (gunNow==1 ||gunNow==2) {
+      //  if (zombieArray[i].shooted (hero.nowDirectionNum, i, gunArray[gunNow].num, 0)) {
+      //    zombieArray[i].shooted = true;
+      //  }
+      //} else if (gunNow==4 ) {
+      //  if (zombieArray[i].shooted (hero.nowDirectionNum, i, gunArray[gunNow].num, 30)) {
+      //    zombieArray[i].hp -= gunArray[gunNow].power;
+      //  }
+      //}
     }
     for(int j=0;j<rocketNow;j++){
-
-    if(gunNow==5&&key=='r' ){
-    if(isHit(zombieArray[i].x, zombieArray[i].y, zombieArray[i].img.width, zombieArray[i].img.height, rocketArray[j].x-20, rocketArray[j].y-20, rocketArray[j].img.width+40, rocketArray[j].img.height+40)==true)
-    {
-    zombieArray[i].x = width;
-    zombieArray[i].y = height;
-    }
+      if(gunNow==5&&key=='r' ){
+      if(isHit(zombieArray[i].x, zombieArray[i].y, zombieArray[i].img.width, zombieArray[i].img.height, rocketArray[j].x-20, rocketArray[j].y-20, rocketArray[j].img.width+40, rocketArray[j].img.height+40)==true)
+      {
+      zombieArray[i].x = width;
+      zombieArray[i].y = height;
+      }
     }
   }
   }
-  if(gunNow == 4){
+  distanceZ = 100000;
+  for(int i=0; i<zombieNow; i++){ //0107 update 射最近的那隻殭屍 
+    if(zombieArray[i].shooted== true){
+      float a = dist(zombieArray[i].x,zombieArray[i].y,hero.x,hero.y);
+      if(a <= distanceZ){
+      distanceZ = a;
+      shootedNumZ =  i;
+      }
+    }
+  }
+  distanceC = 100000;
+  for(int i=0; i<canNow; i++){  //0107 update 射最近的那個can
+  if(canArray[i].shooted == true){
+      float a = dist(canArray[i].x,canArray[i].y,hero.x,hero.y);
+      if(a <= distanceC){
+      distanceC = a;
+      shootedNumC =  i;
+      println("shootedNumC: "+shootedNumC);
+      }
+    }
+  }
+  if(hero.shooting == true ){
+    if(zombieArray[shootedNumZ] != null && canArray[shootedNumC] != null){
+      if(zombieArray[shootedNumZ].shooted!=true){
+        for (int i=0; i<zombieNow; i++) {
+          if (isHit(zombieArray[i].x, zombieArray[i].y, zombieArray[i].img.width, zombieArray[i].img.height, canArray[shootedNumC].x-50, canArray[shootedNumC].y-50, canArray[shootedNumC].img.width+100, canArray[shootedNumC].img.height+100)) {
+            zombieArray[i].x = width;
+            zombieArray[i].y = height;
+          }
+        }
+        canArray[shootedNumC].x = width;
+        canArray[shootedNumC].y = height;
+        hero.shooting = false;
+        canArray[shootedNumC].shooted = false;
+        println("can");
+      }else
+      if(canArray[shootedNumC].shooted != true){
+        zombieArray[shootedNumZ].hp -= gunArray[gunNow].power;
+        hero.shooting = false;
+        zombieArray[shootedNumZ].shooted = false;
+        println("z");
+      }else
+      if(dist(zombieArray[shootedNumZ].x,zombieArray[shootedNumZ].y,hero.x,hero.y) < dist(canArray[shootedNumC].x,canArray[shootedNumC].y,hero.x,hero.y) || canArray[shootedNumC].x == width){
+        zombieArray[shootedNumZ].hp -= gunArray[gunNow].power;
+        hero.shooting = false;
+        println("ok1:"+ zombieArray[shootedNumZ].shooted);
+        zombieArray[shootedNumZ].shooted = false;
+      }else{
+        for (int i=0; i<zombieNow; i++) {
+          if (isHit(zombieArray[i].x, zombieArray[i].y, zombieArray[i].img.width, zombieArray[i].img.height, canArray[shootedNumC].x-50, canArray[shootedNumC].y-50, canArray[shootedNumC].img.width+100, canArray[shootedNumC].img.height+100)) {
+            zombieArray[i].x = width;
+            zombieArray[i].y = height;
+          }
+        }
+        canArray[shootedNumC].x = width;
+        canArray[shootedNumC].y = height;
+        hero.shooting = false;
+        canArray[shootedNumC].shooted = false;
+        println("ok2");
+      }
+    }
+    if(zombieArray[shootedNumZ] != null && canArray[shootedNumC] == null){
+      zombieArray[shootedNumZ].hp -= gunArray[gunNow].power;
+      hero.shooting = false;
+      zombieArray[shootedNumZ].shooted = false;
+      println("ok3");
+    }
+  }
+  
+  //if(hero.shooting==true){ //0107 update 射最近的那隻殭屍_扣血
+  //  zombieArray[shootedNum].hp -= gunArray[gunNow].power;
+  //}
+  if(gunNow == 4){ //0107 update shotGun 一次殺很多人
     hero.shooting = false;
   }
 
@@ -235,7 +306,7 @@ void keyPressed() {
       if (canNow < canMax) {
         canArray[canNow] = new Can();
         canNow++;     
-        println(canNow);
+        //println(canNow);
       }
       //image(hero.img,hero.x,hero.y);//讓主角在can的上方
     }
